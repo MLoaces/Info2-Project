@@ -5,7 +5,7 @@
     Controlando un display BCD de 7 digitos
 --------------------------------------------------------------------  
 */
-
+int a=10;
 
 byte Digit[10][8] =
   {  { 1,1,1,1,1,1,0,0 },    // 0
@@ -61,4 +61,3 @@ void CalculaDigitos( int Num)
   Display(1 , Digit1);
   Display(0 , Digit0);
 }
-
