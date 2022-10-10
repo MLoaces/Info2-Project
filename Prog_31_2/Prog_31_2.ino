@@ -7,6 +7,7 @@
 */
 
 int a=10;
+float b;
 
 
 byte Digit[10][8] =
