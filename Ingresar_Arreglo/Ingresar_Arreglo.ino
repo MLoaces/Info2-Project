@@ -6,7 +6,7 @@ void setup()
 {
   Serial.begin(9600);
     IngresarArreglo();
-  ImprimirArreglo();
+    ImprimirArreglo();
 }
 
 void loop()
