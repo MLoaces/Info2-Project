@@ -1,8 +1,7 @@
 // C++ code
 //
-
-#include <LiquidCrystal_I2C.h>
-const int N=2;
+#include <Adafruit_LiquidCrystal.h>
+const int N=3;
 #define buzzer 9
 int a[N];
 void ImprimirArreglo();
@@ -12,16 +11,13 @@ void ImprimirResultados();
 int seconds = 10;
 int k=0;
 
-LiquidCrystal_I2C lcd_1(0x27, 16, 2);
+Adafruit_LiquidCrystal lcd_1(0);
 
 void setup()
 {
-  
-  lcd_1.setBacklight(1);
   pinMode(buzzer, OUTPUT);
   Serial.begin(9600);
-  lcd_1.init();
-  lcd_1.clear();
+  lcd_1.begin(16, 2);
   lcd_1.print(" Reloj Largador");
   lcd_1.setCursor(0, 1);
   lcd_1.print("Ver Puerto Serie");
@@ -29,7 +25,7 @@ void setup()
   //IngresarArreglo();
   //ImprimirArreglo();
   
-  lcd_1.clear();
+  lcd_1.begin(16, 2);
   lcd_1.print("Regresion: ");
   
   
@@ -37,11 +33,6 @@ void setup()
 
 void loop()
 {
-  if (k==N){
-    lcd_1.clear();
-    lcd_1.print(" Ver Resultados");
-    ImprimirResultados();}
-    
   lcd_1.setCursor(0, 1);
   lcd_1.print("Corredor N: ");
   lcd_1.print(a[k]);
@@ -57,9 +48,12 @@ void loop()
     lcd_1.setCursor(14, 0);
     lcd_1.print(seconds);
   }
-  delay(1000);
+  lcd_1.setBacklight(1);
+  delay(500); // Wait for 500 millisecond(s)
+  lcd_1.setBacklight(0);
+  delay(500);
+
   seconds--;
- 
   if (seconds<=3){
   tone(buzzer, 300, 500);
 }
@@ -69,16 +63,18 @@ void loop()
 }
   }
   k+=1;
+  if (k==N){
+    lcd_1.begin(16, 2);
+    lcd_1.print(" Ver Resultados");
+    ImprimirResultados();}
 }
 
 void IngresarArreglo(){
 
   for(int i=0; i<N; i++){
     Serial.println("Introduce un numero: ");
-   while(Serial.available()==0){};
-    String str = Serial.readStringUntil('\n');
-    a[i] = str.toInt();
-    //a[i]=Serial.parseInt();
+   while(Serial.available()<=0){};
+    a[i]=Serial.parseInt();
   }
 }
 
@@ -94,9 +90,8 @@ void Menu(){
   int i=0;
   do{
   Serial.println("\nBienvenido al menu\n1.Ingresar corredores\n2.Mostrar Lista\n3.Comenzar!\n");
-  while(Serial.available()==0){;};
-  String str = Serial.readStringUntil('\n');
-  i = str.toInt();
+  while(Serial.available()<=0){};
+  i=Serial.parseInt();
   if (i==1){IngresarArreglo();}
   if (i==2){ImprimirArreglo();}
   } while(i!=3);
@@ -105,5 +100,4 @@ void Menu(){
 void ImprimirResultados(){
   Serial.println("\tResultados de la carrera\n\n");
 
-while(1){;}
 }
