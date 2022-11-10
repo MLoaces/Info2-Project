@@ -9,10 +9,6 @@
 #define OutPin 13
 #define N 2
 
-/*const int analogInPin = A1;
-const int OutPin = 13; 
-const int N=2;*/
-
 int sensorValue = 0; 
 int a[N];
 int seconds = 10;
