@@ -8,7 +8,8 @@ const int analogInPin = A1;
 const int OutPin = 13; 
 int sensorValue = 0; 
 
-const int N=4;
+const int N=2;
+#define boton A5
 #define buzzer 9
 int a[N];
 void ImprimirArreglo();
@@ -29,6 +30,7 @@ void setup()
   pinMode(buzzer, OUTPUT);
   pinMode(OutPin, OUTPUT);
   pinMode(analogInPin, INPUT);
+  pinMode(boton, INPUT);
   Serial.begin(9600);
   Rtc.Begin();
   lcd_1.init();
@@ -124,12 +126,13 @@ void ImprimirArreglo(){
 void Menu(){
   int i=0;
   do{
-  Serial.println("\nBienvenido al menu\n1.Ingresar corredores\n2.Mostrar Lista\n3.Comenzar!\n");
+  Serial.println("\nBienvenido al menu\n1.Ingresar corredores\n2.Mostrar Lista\n3.Guardar\n");
   while(Serial.available()==0){;};
   String str = Serial.readStringUntil('\n');
   i = str.toInt();
   if (i==1){IngresarArreglo();}
   if (i==2){ImprimirArreglo();}
+  if (i==3){Serial.println("Reloj listo para comenzar, Presione el boton rojo\n"); while(analogRead(boton)>1000){;}}
   } while(i!=3);
 }
 
