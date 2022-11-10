@@ -78,7 +78,6 @@ void IngresarArreglo(){
    while(Serial.available()==0){};
     String str = Serial.readStringUntil('\n');
     a[i] = str.toInt();
-    //a[i]=Serial.parseInt();
   }
 }
 
