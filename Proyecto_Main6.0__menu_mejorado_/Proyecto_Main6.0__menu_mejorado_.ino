@@ -11,6 +11,7 @@
 
 int sensorValue = 0; 
 int seconds = 10;
+int secondselegido=10
 int k=0;
 int a[N];
 
@@ -108,7 +109,7 @@ void loop()
     }
     if (seconds==0){
       tone(buzzer, 900, 800);
-      seconds=10;
+      seconds=secondselegido;
     }
   }
   k+=1;
@@ -146,7 +147,8 @@ void Menu(){
       Serial.println("Ingresar segundos de conteo(10s Valor por defecto):\n"); 
       while(Serial.available()==0){};
       String str = Serial.readStringUntil('\n');
-      seconds = str.toInt();}
+      secondselegido = str.toInt();
+      seconds=secondselegido;}
     if (i==4){Serial.println("Reloj listo para comenzar, Presione el boton rojo\n"); while(analogRead(boton)>1000){;}}
   
   } while(i!=4);
