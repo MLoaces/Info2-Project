@@ -11,7 +11,7 @@
 
 int sensorValue = 0; 
 int seconds = 10;
-int secondselegido=10
+int secondselegido=10;
 int k=0;
 int a[N];
 
@@ -80,10 +80,6 @@ void loop()
     while(1){}
    }
   
-  Serial.print("Piloto Numero: ");Serial.print(a[k]);Serial.print(" Hora de largada: ");
-  RtcDateTime now = Rtc.GetDateTime();
-  printDateTime(now);
-  
   lcd_1.setCursor(0, 1);
   lcd_1.print("Corredor N: ");
   lcd_1.print(a[k]);
@@ -101,7 +97,7 @@ void loop()
       lcd_1.print(seconds);
     }
   
-    delay(900);
+    delay(1000);
     seconds--;
  
     if (seconds<=3){
@@ -112,13 +108,16 @@ void loop()
       seconds=secondselegido;
     }
   }
+  Serial.print("Piloto Numero: ");Serial.print(a[k]);Serial.print(" Hora de largada: ");
+  RtcDateTime now = Rtc.GetDateTime();
+  printDateTime(now);
   k+=1;
 }
 
 void IngresarArreglo(){
 
   for(int i=0; i<N; i++){
-    Serial.println("Introduce un numero: ");
+    Serial.println("Introduzca numero de piloto: ");
     while(Serial.available()==0){};
     String str = Serial.readStringUntil('\n');
     a[i] = str.toInt();
@@ -126,9 +125,9 @@ void IngresarArreglo(){
 }
 
 void ImprimirArreglo(){
-  Serial.println("La lista es: ");
+  Serial.println("La lista de pilotos a largar es: ");
   for (int i=0; i<N; i++){
-    Serial.println(a[i]);
+    Serial.print(i+1);Serial.print(". ");Serial.println(a[i]);
   }
   Serial.println();
 }
@@ -149,8 +148,15 @@ void Menu(){
       String str = Serial.readStringUntil('\n');
       secondselegido = str.toInt();
       seconds=secondselegido;}
-    if (i==4){Serial.println("Reloj listo para comenzar, Presione el boton rojo\n"); while(analogRead(boton)>1000){;}}
-  
+    if (i==4){
+      Serial.println("Reloj listo para comenzar, Presione el boton rojo\n"); 
+      lcd_1.clear();
+      lcd_1.print("Reloj esta listo");
+      lcd_1.setCursor(0, 1);
+      lcd_1.print("Pres. boton rojo");
+      while(analogRead(boton)>1000){;}
+      lcd_1.clear();
+    }
   } while(i!=4);
 }
 
