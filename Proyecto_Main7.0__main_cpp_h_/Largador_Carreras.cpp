@@ -2,7 +2,7 @@
 #include <RtcDS1302.h>
 #include <LiquidCrystal_I2C.h>
 #include "Largador_Carerras.h"
-using namespace std;
+
 
 int sensorValue = 0; 
 int seconds = 10;

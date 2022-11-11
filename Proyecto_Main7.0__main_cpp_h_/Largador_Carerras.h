@@ -1,6 +1,3 @@
-#ifndef LARGADOR_CARRERAS_H
-#define LARGADOR_CARRERAS_H 
-
 #include <ThreeWire.h>  
 #include <RtcDS1302.h>
 #include <LiquidCrystal_I2C.h>
@@ -15,5 +12,3 @@ void ImprimirArreglo();
 void IngresarArreglo();
 void Menu();
 void printDateTime(const RtcDateTime& dt);
-
-#endif // LARGADOR_CARRERAS_H
