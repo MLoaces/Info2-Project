@@ -8,12 +8,12 @@
 void setup()
 {
   Serial.begin(9600);
-  configuracion();
+  configuracion(); //Conf de pines, menu y lcd
 
 }
 
 void loop()
 {
-  ejecutarbarrera();
-  ejecutarcontador();
+  ejecutarbarrera(); //Solo cuando todos los corredores largaron
+  ejecutarcontador(); //Implementacion lcd, regresion y rtc
 }
